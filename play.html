@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart of the Congo - Play Now</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #f0f0f0;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 2rem 0;
+            border-bottom: 3px solid #8b7355;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            color: #d4af37;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: #c0a080;
+            font-style: italic;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .intro-section {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 4px solid #d4af37;
+            margin-bottom: 2rem;
+        }
+
+        .intro-section h2 {
+            color: #d4af37;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .intro-section p {
+            margin-bottom: 1rem;
+            color: #e0e0e0;
+            line-height: 1.8;
+        }
+
+        .cta-section {
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: linear-gradient(135deg, #d4af37 0%, #a68c3c 100%);
+            color: #1a1a1a;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin: 1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(139, 115, 85, 0.3);
+            color: #d4af37;
+            border: 2px solid #d4af37;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(139, 115, 85, 0.5);
+        }
+
+        .story-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature-card {
+            background: rgba(139, 115, 85, 0.15);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-top: 3px solid #d4af37;
+        }
+
+        .feature-card h3 {
+            color: #d4af37;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            color: #c0c0c0;
+            font-size: 0.95rem;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 2rem;
+            text-align: center;
+            border-top: 3px solid #8b7355;
+            margin-top: 3rem;
+            color: #a0a0a0;
+        }
+
+        footer a {
+            color: #d4af37;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .warning {
+            background: rgba(212, 175, 55, 0.1);
+            border-left: 4px solid #d4af37;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+            color: #e0e0e0;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .story-features {
+                grid-template-columns: 1fr;
+            }
+
+            .btn {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🌍 Heart of the Congo</h1>
+        <p>An Interactive Journey into Darkness and Discovery</p>
+    </header>
+
+    <div class="container">
+        <section class="intro-section">
+            <h2>Ready to Begin?</h2>
+            <p>
+                In the autumn of 1890, the Company makes you an extraordinary offer. The pay is enormous, the prospects uncertain. You will venture into the heart of Africa, where civilization fades into shadow and every choice carries the weight of moral consequence.
+            </p>
+            <p>
+                <strong>Heart of the Congo</strong> is an interactive narrative experience inspired by Joseph Conrad's timeless novella. Your decisions will shape the story, determining whether you emerge enlightened, corrupted, or lost in the darkness.
+            </p>
+            <p style="margin-top: 1.5rem;">
+                <strong>This story explores themes of imperialism, moral ambiguity, power, and the darkness within civilization itself. It is intended for mature audiences.</strong>
+            </p>
+        </section>
+
+        <section class="cta-section">
+            <a href="game.html" class="btn">▶ Play the Story</a>
+        </section>
+
+        <section>
+            <h2 style="color: #d4af37; margin: 2rem 0 1rem 0; text-align: center;">What Awaits You</h2>
+            <div class="story-features">
+                <div class="feature-card">
+                    <h3>5 Story Phases</h3>
+                    <p>Follow your journey from Brussels to the depths of the African interior, each phase presenting new moral challenges and dangerous choices.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>10+ Crucial Choices</h3>
+                    <p>Every decision matters. Your choices determine not just what happens, but what kind of person you become through the story.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Multiple Endings</h3>
+                    <p>Will you be a witness to truth? A disillusioned wanderer? Complicit in evil? Lost in the wilderness? Each path leads to a different destiny.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>No Right Answers</h3>
+                    <p>There are no "good" or "bad" choices here—only consequences. Every path reveals different truths about power, morality, and human nature.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="intro-section">
+            <h2>The Story Unfolds in Five Acts</h2>
+            <p>
+                <strong style="color: #d4af37;">I. The Contract:</strong> In Brussels, you meet the Company and face your first moral test. Will you resist their authority or accept their doctrine?
+            </p>
+            <p>
+                <strong style="color: #d4af37;">II. The Coast:</strong> You arrive at a desolate Station. Rumors of a Grove of Death and a mysterious figure named Kurtz await. Will you seek truth or remain willfully ignorant?
+            </p>
+            <p>
+                <strong style="color: #d4af37;">III. The River:</strong> You journey upstream toward the Inner Station. The jungle presses in. Violence erupts. Will you continue or turn back?
+            </p>
+            <p>
+                <strong style="color: #d4af37;">IV. The Inner Station:</strong> At last, you meet Kurtz—a man who has become something more than human, or perhaps less. Will you save him or abandon him?
+            </p>
+            <p>
+                <strong style="color: #d4af37;">Coda: The Return:</strong> The river carries you home. But you are changed. What truth will you carry back to civilization?
+            </p>
+        </section>
+
+        <section class="cta-section">
+            <h2 style="color: #d4af37; margin-bottom: 1.5rem;">Your journey awaits</h2>
+            <a href="game.html" class="btn">Begin the Story Now</a>
+            <a href="index.html" class="btn btn-secondary">Back to Home</a>
+        </section>
+    </div>
+
+    <footer>
+        <p>
+            <strong>Heart of the Congo</strong> — An interactive adaptation inspired by Joseph Conrad's "Heart of Darkness"
+        </p>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">
+            <a href="https://github.com/coder6262/heart-of-the-congo">GitHub Repository</a> • 
+            <a href="https://github.com/coder6262">Created by coder6262</a>
+        </p>
+        <p style="margin-top: 1rem; font-size: 0.85rem; color: #808080;">
+            © 2026 Interactive Fiction Project. Built with Twine & Harlowe.
+        </p>
+    </footer>
+</body>
+</html>

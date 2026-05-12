@@ -175,6 +175,16 @@
             color: #d4af37;
         }
 
+        .status-badge {
+            display: inline-block;
+            background: #d4af37;
+            color: #1a1a1a;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
         @media (max-width: 768px) {
             header h1 {
                 font-size: 2rem;
@@ -198,6 +208,7 @@
 
     <div class="container">
         <section class="intro-section">
+            <div class="status-badge">✓ Now Live & Playable</div>
             <h2>Welcome, Traveler</h2>
             <p>
                 In the autumn of 1890, the Company offers you a contract. The pay is extraordinary, 
@@ -221,23 +232,23 @@
                 <p>Crucial Choices</p>
             </div>
             <div class="stat-card">
-                <h3>15+</h3>
-                <p>Story Elements</p>
+                <h3>5</h3>
+                <p>Unique Endings</p>
             </div>
             <div class="stat-card">
-                <h3>Multiple</h3>
-                <p>Endings</p>
+                <h3>∞</h3>
+                <p>Possible Stories</p>
             </div>
         </section>
 
         <section class="cta-section">
             <h2 style="color: #d4af37; margin-bottom: 1.5rem;">Begin Your Journey</h2>
-            <button class="btn" onclick="alert('Story experience coming soon. Check back for the interactive narrative.')">
-                Start the Story
-            </button>
-            <a href="https://github.com/coder6262/heart-of-the-congo" class="btn">
-                View on GitHub
+            <a href="play.html" class="btn" style="font-size: 1.3rem; padding: 1.2rem 3rem;">
+                ▶ Play Now
             </a>
+            <p style="color: #c0a080; margin-top: 1rem; font-style: italic;">
+                The jungle awaits. Your choices matter.
+            </p>
         </section>
 
         <section>
@@ -306,9 +317,9 @@
             <p style="color: #c0c0c0; margin-bottom: 1.5rem; font-size: 1.1rem;">
                 The jungle awaits. The choice is yours.
             </p>
-            <button class="btn" onclick="alert('Story experience coming soon. Check back for the interactive narrative.')">
+            <a href="play.html" class="btn">
                 Enter the Darkness
-            </button>
+            </a>
         </section>
     </div>
 
@@ -321,7 +332,7 @@
             <a href="https://github.com/coder6262">Created by coder6262</a>
         </p>
         <p style="margin-top: 1rem; font-size: 0.85rem; color: #808080;">
-            © 2026 Interactive Fiction Project. Built with HTML5 & CSS3.
+            © 2026 Interactive Fiction Project. Built with Twine & Harlowe.
         </p>
     </footer>
 </body>
