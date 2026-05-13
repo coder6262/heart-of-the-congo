@@ -30,7 +30,7 @@ export function parseEffect(
   efficiency?: string,
   health?: string,
   sanity?: string
-): Effect {
+): Effect | undefined {
   const effect: Effect = {};
   if (humanity && humanity.trim()) effect.humanity = parseInt(humanity, 10);
   if (efficiency && efficiency.trim()) effect.efficiency = parseInt(efficiency, 10);
