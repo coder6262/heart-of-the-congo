@@ -15,6 +15,18 @@ import {
 } from "@/lib/game";
 import { AfricaMap } from "@/components/AfricaMap";
 import titleImg from "@/assets/scene-title.jpg";
+import brusselsImg from "@/assets/scene-brussels.jpg";
+import coastImg from "@/assets/scene-coast.jpg";
+import riverImg from "@/assets/scene-river.jpg";
+import innerImg from "@/assets/scene-inner.jpg";
+
+const SCENE_IMAGES: Record<string, string> = {
+  brussels: brusselsImg,
+  coast: coastImg,
+  river: riverImg,
+  inner: innerImg,
+  title: titleImg,
+};
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -127,6 +139,14 @@ function GamePage() {
                   {p}
                 </p>
               ))}
+              {event.pullquote && (
+                <blockquote className="my-8 border-l-2 border-blood/60 pl-5 italic font-display text-xl text-foreground/80 max-w-[55ch]">
+                  &ldquo;{event.pullquote}&rdquo;
+                  <footer className="not-italic font-mono text-[9px] uppercase tracking-[0.25em] text-muted-foreground mt-2">
+                    — Joseph Conrad, <span className="italic">Heart of Darkness</span>
+                  </footer>
+                </blockquote>
+              )}
             </div>
             {event.choices.length > 0 ? (
               <section className="mt-10 space-y-3 max-w-[62ch]">
@@ -142,6 +162,20 @@ function GamePage() {
 
           <aside className="lg:col-span-5">
             <div className="lg:sticky lg:top-24 space-y-6">
+              <figure className="relative">
+                <img
+                  key={event.id}
+                  src={SCENE_IMAGES[event.image] ?? riverImg}
+                  alt={`Plate: ${event.title}`}
+                  width={1024}
+                  height={1280}
+                  loading="lazy"
+                  className="w-full aspect-[4/5] object-cover sepia-[0.2] saturate-75 contrast-105 mix-blend-multiply ring-1 ring-ink/15 ink-fade"
+                />
+                <figcaption className="mt-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                  Plate {turn.toString().padStart(2, "0")} — {event.title}
+                </figcaption>
+              </figure>
               <div className="border border-ink/15 bg-paper-deep/40 p-4">
                 <AfricaMap territory={stats.territory} />
               </div>

@@ -16,7 +16,14 @@ export const STAT_META: Record<StatKey, { label: string; max: number; tone: stri
 export const INITIAL_STATS: Stats = { territory: 5, gold: 60, military: 40, humanity: 70, infamy: 10 };
 
 export type Choice = { label: string; effects: Partial<Stats>; next: string };
-export type Event = { id: string; title: string; description: string; choices: Choice[] };
+export type Event = {
+  id: string;
+  title: string;
+  description: string;
+  image: string;       // one of: brussels | coast | river | inner | title
+  pullquote?: string;  // optional Conrad quote
+  choices: Choice[];
+};
 
 // ---------- CSV PARSING ----------
 function parseCSVLine(line: string): string[] {
@@ -83,6 +90,8 @@ export function parseEventsCSV(csv: string): Record<string, Event> {
       id,
       title: row.title || id,
       description: (row.description || "").replace(/\\n/g, "\n\n"),
+      image: (row.image || "river").trim().toLowerCase(),
+      pullquote: (row.pullquote || "").trim() || undefined,
       choices,
     };
   }
