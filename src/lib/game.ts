@@ -68,12 +68,14 @@ export function parseEventsCSV(csv: string): Record<string, Event> {
 
   for (let i = 1; i < lines.length; i++) {
     const raw = lines[i];
-    if (!raw.trim() || raw.trim().startsWith("#")) continue;
     const cells = parseCSVLine(raw);
+    const firstCell = (cells[0] ?? "").trim().replace(/^\uFEFF/, "");
+    if (!raw.trim() || firstCell.startsWith("#")) continue;
+
     const row: Record<string, string> = {};
     headers.forEach((h, idx) => (row[h] = (cells[idx] ?? "").trim()));
     const id = row.id;
-    if (!id) continue;
+    if (!id || id.startsWith("#")) continue;
 
     const choices: Choice[] = [];
     for (let n = 1; n <= 4; n++) {
