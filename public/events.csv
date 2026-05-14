@@ -1,6 +1,6 @@
 id,title,description,image,pullquote,choice1,effects1,next1,choice2,effects2,next2,choice3,effects3,next3,choice4,effects4,next4
 # THE SCRAMBLE FOR AFRICA — A Heart of Darkness Event Web
-# HOW TO ADD AN EVENT: append a row. No "start" or "end" — events link to each other freely.
+# HOW TO ADD AN EVENT: append a row. No start or end — events link to each other freely.
 # COLUMNS:
 #   id           unique short name (lowercase, no spaces).
 #   title        headline shown to player.
