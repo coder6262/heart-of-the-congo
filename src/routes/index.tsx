@@ -52,6 +52,7 @@ function GamePage() {
   const [recent, setRecent] = useState<string[]>([]);
   const [turn, setTurn] = useState(0);
   const [started, setStarted] = useState(false);
+  const [briefed, setBriefed] = useState(false);
   const [flash, setFlash] = useState<Partial<Stats> | null>(null);
   const [end, setEnd] = useState<EndGame>(null);
 
@@ -112,6 +113,7 @@ function GamePage() {
     return <div className="min-h-screen grid place-items-center text-muted-foreground font-mono text-xs">Loading the map…</div>;
   }
   if (!started) return <TitleScreen onBegin={() => setStarted(true)} count={Object.keys(events).length} />;
+  if (!briefed) return <BriefingScreen onBegin={() => setBriefed(true)} />;
 
   return (
     <div className="min-h-screen flex flex-col">
