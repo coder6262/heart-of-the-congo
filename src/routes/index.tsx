@@ -113,10 +113,10 @@ function GamePage() {
     return <div className="min-h-screen grid place-items-center text-muted-foreground font-mono text-xs">Loading the map…</div>;
   }
   if (!started) return <TitleScreen onBegin={() => setStarted(true)} count={Object.keys(events).length} />;
-  if (!briefed) return <BriefingScreen onBegin={() => setBriefed(true)} />;
 
   return (
     <div className="min-h-screen flex flex-col">
+      {!briefed && <BriefingScreen onBegin={() => setBriefed(true)} />}
       <TopBar stats={stats} flash={flash} turn={turn} />
       <main className="flex-1 py-8 sm:py-12">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -325,65 +325,84 @@ function BriefingScreen({ onBegin }: { onBegin: () => void }) {
     { label: "Scandal", tone: "var(--blood)", text: "Push Infamy past 100 — the newspapers in London ruin you." },
   ];
   return (
-    <div className="min-h-screen bg-paper text-ink py-16 px-6">
-      <div className="max-w-3xl mx-auto ink-fade">
-        <div className="font-mono text-[10px] uppercase tracking-[0.4em] text-blood mb-3">Briefing · Before You Sail</div>
-        <h1 className="font-display italic text-5xl sm:text-6xl text-ink leading-[0.95] mb-4">
-          Five ledgers <span className="text-blood">decide your fate</span>
-        </h1>
-        <p className="font-display text-lg sm:text-xl text-foreground/80 italic max-w-[55ch] leading-relaxed mb-10">
-          Every dispatch you send back to Brussels moves these numbers. Push them too far in any direction and the story ends — gloriously, or otherwise.
-        </p>
-
-        <section className="space-y-4 mb-12">
-          <h2 className="font-mono text-[10px] uppercase tracking-[0.3em] text-blood mb-2">The Stats</h2>
-          {(Object.keys(STAT_META) as StatKey[]).map((k) => {
-            const m = STAT_META[k];
-            return (
-              <div key={k} className="border border-ink/20 bg-paper-deep/30 p-5 flex gap-5 items-start">
-                <div className="shrink-0 w-28">
-                  <div className="font-mono text-[10px] uppercase tracking-[0.2em]" style={{ color: m.tone }}>{m.label}</div>
-                  <div className="font-display text-3xl text-ink">{INITIAL_STATS[k]}<span className="text-base text-muted-foreground">/{m.max}</span></div>
-                  <div className="h-[3px] w-full bg-foreground/10 mt-1">
-                    <div className="h-full" style={{ width: `${(INITIAL_STATS[k] / m.max) * 100}%`, backgroundColor: m.tone }} />
-                  </div>
-                </div>
-                <p className="text-foreground/85 leading-relaxed text-[15px] flex-1">{m.describe}</p>
-              </div>
-            );
-          })}
-        </section>
-
-        <section className="mb-12">
-          <h2 className="font-mono text-[10px] uppercase tracking-[0.3em] text-blood mb-3">How the Game Ends</h2>
-          <ul className="space-y-2">
-            {outcomes.map((o) => (
-              <li key={o.label} className="border-l-2 pl-4 py-1" style={{ borderColor: o.tone }}>
-                <div className="font-display text-lg text-ink italic">{o.label}</div>
-                <div className="text-foreground/75 text-sm">{o.text}</div>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        <section className="mb-12 border border-ink/20 bg-paper-deep/40 p-5">
-          <h2 className="font-mono text-[10px] uppercase tracking-[0.3em] text-blood mb-2">How to Play</h2>
-          <ul className="space-y-1.5 text-foreground/85 text-[15px] leading-relaxed list-disc pl-5">
-            <li>Each dispatch presents a scene and 2–4 choices. Pick one.</li>
-            <li>Choices move your ledgers up or down — watch the floating numbers.</li>
-            <li>The story is a web, not a line. The same event may return; new ones unlock as you press inland.</li>
-            <li>Track your conquest on the map of Africa. Eight regions fall as your Territory grows.</li>
-          </ul>
-        </section>
-
-        <div className="flex flex-col items-center gap-3">
+    <div className="fixed inset-0 z-50 grid place-items-center bg-black/70 backdrop-blur-sm p-4 ink-fade" role="dialog" aria-modal="true" aria-labelledby="briefing-title">
+      <div className="relative w-full max-w-2xl max-h-[90vh] flex flex-col border border-ink/30 bg-paper shadow-2xl">
+        {/* Sticky header */}
+        <div className="sticky top-0 bg-paper border-b border-ink/15 px-6 py-4 flex items-start justify-between gap-4">
+          <div>
+            <div className="font-mono text-[10px] uppercase tracking-[0.4em] text-blood mb-1">Briefing · Before You Sail</div>
+            <h2 id="briefing-title" className="font-display italic text-2xl sm:text-3xl text-ink leading-tight">
+              Five ledgers <span className="text-blood">decide your fate</span>
+            </h2>
+          </div>
           <button
             onClick={onBegin}
-            className="font-mono text-xs sm:text-sm uppercase tracking-[0.35em] px-12 py-5 bg-blood text-paper border-2 border-ink hover:bg-ink hover:border-blood transition-all duration-300 shadow-[0_8px_24px_rgba(0,0,0,0.25)] hover:-translate-y-0.5 font-bold"
+            aria-label="Close briefing and start the game"
+            className="shrink-0 size-9 grid place-items-center border border-ink/30 text-ink hover:bg-blood hover:text-paper hover:border-blood transition-colors font-mono text-lg"
+          >
+            ✕
+          </button>
+        </div>
+
+        {/* Scrollable body */}
+        <div className="overflow-y-auto px-6 py-5 space-y-6">
+          <p className="text-foreground/80 text-[14px] leading-relaxed">
+            Every dispatch moves these five numbers. Push them too far in any direction and the story ends — gloriously, or otherwise.
+          </p>
+
+          <section>
+            <h3 className="font-mono text-[10px] uppercase tracking-[0.3em] text-blood mb-3">The Stats</h3>
+            <div className="grid sm:grid-cols-2 gap-2">
+              {(Object.keys(STAT_META) as StatKey[]).map((k) => {
+                const m = STAT_META[k];
+                return (
+                  <div key={k} className="border border-ink/15 bg-paper-deep/30 p-3">
+                    <div className="flex items-baseline justify-between mb-1">
+                      <span className="font-mono text-[10px] uppercase tracking-[0.2em]" style={{ color: m.tone }}>{m.label}</span>
+                      <span className="font-display text-base text-ink">{INITIAL_STATS[k]}<span className="text-xs text-muted-foreground">/{m.max}</span></span>
+                    </div>
+                    <div className="h-[2px] w-full bg-foreground/10 mb-2">
+                      <div className="h-full" style={{ width: `${(INITIAL_STATS[k] / m.max) * 100}%`, backgroundColor: m.tone }} />
+                    </div>
+                    <p className="text-foreground/80 text-[12px] leading-snug">{m.describe}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+
+          <section>
+            <h3 className="font-mono text-[10px] uppercase tracking-[0.3em] text-blood mb-2">How the Game Ends</h3>
+            <ul className="space-y-1.5">
+              {outcomes.map((o) => (
+                <li key={o.label} className="border-l-2 pl-3 py-0.5" style={{ borderColor: o.tone }}>
+                  <span className="font-display italic text-ink">{o.label}</span>
+                  <span className="text-foreground/70 text-[13px]"> — {o.text}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section className="border border-ink/15 bg-paper-deep/40 p-4">
+            <h3 className="font-mono text-[10px] uppercase tracking-[0.3em] text-blood mb-2">How to Play</h3>
+            <ul className="space-y-1 text-foreground/80 text-[13px] leading-snug list-disc pl-5">
+              <li>Each dispatch presents a scene and 2–4 choices.</li>
+              <li>Choices nudge your ledgers — watch the floating numbers.</li>
+              <li>The story is a web, not a line. Events may return.</li>
+              <li>Track your conquest on the map of Africa.</li>
+            </ul>
+          </section>
+        </div>
+
+        {/* Sticky footer with CTA */}
+        <div className="sticky bottom-0 bg-paper border-t border-ink/15 px-6 py-4 flex items-center justify-between gap-4">
+          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground hidden sm:block">Berlin awaits</p>
+          <button
+            onClick={onBegin}
+            className="ml-auto font-mono text-[11px] sm:text-xs uppercase tracking-[0.35em] px-8 py-3 bg-blood text-paper border-2 border-ink hover:bg-ink hover:border-blood transition-all duration-300 shadow-[0_6px_18px_rgba(0,0,0,0.25)] hover:-translate-y-0.5 font-bold"
           >
             Sail for the Congo →
           </button>
-          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">The Berlin Conference awaits</p>
         </div>
       </div>
     </div>
