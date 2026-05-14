@@ -62,7 +62,7 @@ function GamePage() {
         const parsed = parseEventsCSV(t);
         if (Object.keys(parsed).length === 0) throw new Error("No events found in events.csv");
         setEvents(parsed);
-        setCurrentId(Object.keys(parsed)[0]);
+        setCurrentId(parsed["brussels_conference"] ? "brussels_conference" : Object.keys(parsed)[0]);
       })
       .catch((e) => setLoadError(String(e)));
   }, []);
@@ -94,7 +94,7 @@ function GamePage() {
     setTurn(0);
     setRecent([]);
     setEnd(null);
-    setCurrentId(Object.keys(events)[Math.floor(Math.random() * Object.keys(events).length)]);
+    setCurrentId(events["brussels_conference"] ? "brussels_conference" : Object.keys(events)[0]);
   }
 
   if (loadError) {
@@ -316,26 +316,32 @@ function EndModal({ end, stats, turn, onRestart }: { end: NonNullable<EndGame>; 
 
 function TitleScreen({ onBegin, count }: { onBegin: () => void; count: number }) {
   return (
-    <div className="min-h-screen relative flex items-center justify-center px-6 py-16 vignette overflow-hidden">
-      <img src={titleImg} alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover sepia-[0.3] opacity-40 mix-blend-multiply" />
-      <div className="absolute inset-0 bg-gradient-to-b from-paper/40 via-paper/10 to-paper/85" />
+    <div className="min-h-screen relative flex items-center justify-center px-6 py-16 overflow-hidden bg-black">
+      <img src={titleImg} alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover opacity-70 contrast-125 saturate-75" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/55 to-black/95" />
+      <div className="absolute inset-0 vignette pointer-events-none" />
       <div className="relative max-w-2xl text-center ink-fade">
-        <div className="font-mono text-[10px] uppercase tracking-[0.4em] text-blood mb-5">A Web of Choices · 1884–1900</div>
-        <h1 className="font-display text-6xl sm:text-7xl italic text-ink leading-[0.95] mb-5">The Scramble</h1>
-        <p className="font-display text-xl sm:text-2xl text-foreground/80 italic max-w-xl mx-auto leading-relaxed mb-8">
+        <div className="font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--gold)] mb-5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">A Web of Choices · 1884–1900</div>
+        <h1 className="font-display text-6xl sm:text-8xl italic text-white leading-[0.9] mb-6 drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
+          The <span className="text-[var(--blood)]">Scramble</span>
+        </h1>
+        <p className="font-display text-xl sm:text-2xl text-white/90 italic max-w-xl mx-auto leading-relaxed mb-10 drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
           You are an agent of the Company. Carve a kingdom out of a continent — by treaty, by trade, or by the gun. Every dispatch is one move on a map nobody can read.
         </p>
-        <div className="flex flex-col items-center gap-2">
-          <button onClick={onBegin} className="font-mono text-[11px] uppercase tracking-[0.3em] px-10 py-4 bg-ink text-paper hover:bg-blood transition-colors">
-            Set Sail for the Coast →
+        <div className="flex flex-col items-center gap-4">
+          <button
+            onClick={onBegin}
+            className="group relative font-mono text-xs sm:text-sm uppercase tracking-[0.35em] px-12 py-5 bg-[var(--blood)] text-white border-2 border-white/90 hover:bg-white hover:text-[var(--blood)] hover:border-[var(--blood)] transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.7)] hover:shadow-[0_12px_40px_rgba(122,26,20,0.6)] hover:-translate-y-0.5 font-bold"
+          >
+            <span className="relative z-10">Convene at Berlin →</span>
           </button>
-          <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-muted-foreground">{count} interconnected events · 5 stats · ∞ paths</p>
+          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/60">{count} interconnected events · 5 stats · ∞ paths</p>
         </div>
-        <div className="mt-12 grid grid-cols-2 sm:grid-cols-5 gap-3 max-w-2xl mx-auto text-left">
+        <div className="mt-14 grid grid-cols-2 sm:grid-cols-5 gap-3 max-w-2xl mx-auto text-left">
           {(Object.keys(STAT_META) as StatKey[]).map((k) => (
-            <div key={k} className="border-t border-ink/30 pt-2">
-              <div className="font-mono text-[9px] uppercase tracking-widest text-blood">{STAT_META[k].label}</div>
-              <div className="font-mono text-[9px] text-muted-foreground leading-snug">{STAT_META[k].describe}</div>
+            <div key={k} className="border-t-2 border-[var(--gold)]/60 pt-2">
+              <div className="font-mono text-[9px] uppercase tracking-widest text-[var(--gold)]">{STAT_META[k].label}</div>
+              <div className="font-mono text-[9px] text-white/70 leading-snug">{STAT_META[k].describe}</div>
             </div>
           ))}
         </div>
