@@ -316,6 +316,80 @@ function EndModal({ end, stats, turn, onRestart }: { end: NonNullable<EndGame>; 
   );
 }
 
+function BriefingScreen({ onBegin }: { onBegin: () => void }) {
+  const outcomes: { label: string; tone: string; text: string }[] = [
+    { label: "Total Conquest", tone: "var(--accent)", text: "Push Territory to 100 — the continent is yours, by treaty or by gun." },
+    { label: "Bankrupted", tone: "var(--blood)", text: "Let Gold fall to 0 — Brussels recalls you in disgrace." },
+    { label: "Mutiny", tone: "var(--blood)", text: "Let Military collapse to 0 — your column dissolves into the bush." },
+    { label: "The Horror", tone: "var(--blood)", text: "Let Humanity reach 0 — you become what you were sent to civilize." },
+    { label: "Scandal", tone: "var(--blood)", text: "Push Infamy past 100 — the newspapers in London ruin you." },
+  ];
+  return (
+    <div className="min-h-screen bg-paper text-ink py-16 px-6">
+      <div className="max-w-3xl mx-auto ink-fade">
+        <div className="font-mono text-[10px] uppercase tracking-[0.4em] text-blood mb-3">Briefing · Before You Sail</div>
+        <h1 className="font-display italic text-5xl sm:text-6xl text-ink leading-[0.95] mb-4">
+          Five ledgers <span className="text-blood">decide your fate</span>
+        </h1>
+        <p className="font-display text-lg sm:text-xl text-foreground/80 italic max-w-[55ch] leading-relaxed mb-10">
+          Every dispatch you send back to Brussels moves these numbers. Push them too far in any direction and the story ends — gloriously, or otherwise.
+        </p>
+
+        <section className="space-y-4 mb-12">
+          <h2 className="font-mono text-[10px] uppercase tracking-[0.3em] text-blood mb-2">The Stats</h2>
+          {(Object.keys(STAT_META) as StatKey[]).map((k) => {
+            const m = STAT_META[k];
+            return (
+              <div key={k} className="border border-ink/20 bg-paper-deep/30 p-5 flex gap-5 items-start">
+                <div className="shrink-0 w-28">
+                  <div className="font-mono text-[10px] uppercase tracking-[0.2em]" style={{ color: m.tone }}>{m.label}</div>
+                  <div className="font-display text-3xl text-ink">{INITIAL_STATS[k]}<span className="text-base text-muted-foreground">/{m.max}</span></div>
+                  <div className="h-[3px] w-full bg-foreground/10 mt-1">
+                    <div className="h-full" style={{ width: `${(INITIAL_STATS[k] / m.max) * 100}%`, backgroundColor: m.tone }} />
+                  </div>
+                </div>
+                <p className="text-foreground/85 leading-relaxed text-[15px] flex-1">{m.describe}</p>
+              </div>
+            );
+          })}
+        </section>
+
+        <section className="mb-12">
+          <h2 className="font-mono text-[10px] uppercase tracking-[0.3em] text-blood mb-3">How the Game Ends</h2>
+          <ul className="space-y-2">
+            {outcomes.map((o) => (
+              <li key={o.label} className="border-l-2 pl-4 py-1" style={{ borderColor: o.tone }}>
+                <div className="font-display text-lg text-ink italic">{o.label}</div>
+                <div className="text-foreground/75 text-sm">{o.text}</div>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section className="mb-12 border border-ink/20 bg-paper-deep/40 p-5">
+          <h2 className="font-mono text-[10px] uppercase tracking-[0.3em] text-blood mb-2">How to Play</h2>
+          <ul className="space-y-1.5 text-foreground/85 text-[15px] leading-relaxed list-disc pl-5">
+            <li>Each dispatch presents a scene and 2–4 choices. Pick one.</li>
+            <li>Choices move your ledgers up or down — watch the floating numbers.</li>
+            <li>The story is a web, not a line. The same event may return; new ones unlock as you press inland.</li>
+            <li>Track your conquest on the map of Africa. Eight regions fall as your Territory grows.</li>
+          </ul>
+        </section>
+
+        <div className="flex flex-col items-center gap-3">
+          <button
+            onClick={onBegin}
+            className="font-mono text-xs sm:text-sm uppercase tracking-[0.35em] px-12 py-5 bg-blood text-paper border-2 border-ink hover:bg-ink hover:border-blood transition-all duration-300 shadow-[0_8px_24px_rgba(0,0,0,0.25)] hover:-translate-y-0.5 font-bold"
+          >
+            Sail for the Congo →
+          </button>
+          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">The Berlin Conference awaits</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function TitleScreen({ onBegin, count }: { onBegin: () => void; count: number }) {
   return (
     <div className="min-h-screen relative flex items-center justify-center px-6 py-16 overflow-hidden bg-black">
